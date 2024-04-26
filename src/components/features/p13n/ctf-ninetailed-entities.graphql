@@ -1,0 +1,45 @@
+fragment NtExperienceFields on NtExperience {
+  __typename
+  sys {
+    id
+  }
+  ntName
+  ntDescription
+  ntType
+  ntConfig
+  ntAudience {
+    ntAudienceId
+    ntName
+  }
+  ntVariantsCollection {
+    items {
+      __typename
+      sys {
+        id
+      }
+    }
+  }
+}
+
+fragment NtAudienceFields on NtAudience {
+  __typename
+  sys {
+    id
+  }
+  ntName
+  ntDescription
+  ntAudienceId
+}
+
+query CtfNinetailedData($locale: String, $preview: Boolean) {
+  ntExperienceCollection(locale: $locale, preview: $preview) {
+    items {
+      ...NtExperienceFields
+    }
+  }
+  ntAudienceCollection(locale: $locale, preview: $preview) {
+    items {
+      ...NtAudienceFields
+    }
+  }
+}

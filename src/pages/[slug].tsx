@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import { useCtfFooterQuery } from '@src/components/features/ctf-components/ctf-footer/__generated/ctf-footer.generated';
 import { useCtfNavigationQuery } from '@src/components/features/ctf-components/ctf-navigation/__generated/ctf-navigation.generated';
+import { useCtfNinetailedDataQuery } from '@src/components/features/p13n';
 import { useCtfPageQuery } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
 import CtfPageGgl from '@src/components/features/ctf-components/ctf-page/ctf-page-gql';
 import { ComponentReferenceFieldsFragment } from '@src/lib/__generated/graphql.types';
@@ -33,6 +34,10 @@ export const getServerSideProps = async ({ locale, params, query }: CustomNextPa
     const queryClient = new QueryClient();
 
     // Default queries
+    await queryClient.prefetchQuery(
+      useCtfNinetailedDataQuery.getKey({ locale, preview }),
+      useCtfNinetailedDataQuery.fetcher({ locale, preview }),
+    )
     await queryClient.prefetchQuery(
       useCtfPageQuery.getKey({ slug, locale, preview }),
       useCtfPageQuery.fetcher({ slug, locale, preview }),
