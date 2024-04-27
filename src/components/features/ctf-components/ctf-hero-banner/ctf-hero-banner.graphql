@@ -17,10 +17,21 @@ fragment HeroBannerFields on ComponentHeroBanner {
   imageStyle
   heroSize
   colorPalette
-  ntExperiencesCollection {
+}
+
+fragment HeroBannerFieldsWithP13n on ComponentHeroBanner {
+  ...HeroBannerFields
+  ntExperiencesCollection(limit: 10) {
     items {
       ... on NtExperience {
-        ...NtExperienceFields
+        ...NtExperienceBasicFields
+        ntVariantsCollection(limit: 10) {
+          items {
+            ... on ComponentHeroBanner {
+              ...HeroBannerFields
+            }
+          }
+        }
       }
     }
   }
@@ -28,6 +39,6 @@ fragment HeroBannerFields on ComponentHeroBanner {
 
 query CtfHeroBanner($id: String!, $locale: String, $preview: Boolean) {
   componentHeroBanner(id: $id, locale: $locale, preview: $preview) {
-    ...HeroBannerFields
+    ...HeroBannerFieldsWithP13n
   }
 }

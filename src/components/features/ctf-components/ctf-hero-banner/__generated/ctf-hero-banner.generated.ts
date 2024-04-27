@@ -2,10 +2,10 @@ import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { PageLinkFieldsFragment } from '../../../page-link/__generated/page-link.generated';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
-import { NtExperienceFieldsFragment } from '../../../p13n/__generated/ctf-ninetailed-entities.generated';
+import { NtExperienceBasicFieldsFragment } from '../../../p13n/__generated/ctf-ninetailed-entities.generated';
 import { PageLinkFieldsFragmentDoc } from '../../../page-link/__generated/page-link.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
-import { NtExperienceFieldsFragmentDoc } from '../../../p13n/__generated/ctf-ninetailed-entities.generated';
+import { NtExperienceBasicFieldsFragmentDoc } from '../../../p13n/__generated/ctf-ninetailed-entities.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
 export type HeroBannerFieldsFragment = { __typename: 'ComponentHeroBanner', headline?: string | null, ctaText?: string | null, imageStyle?: boolean | null, heroSize?: boolean | null, colorPalette?: string | null, sys: { __typename?: 'Sys', id: string }, bodyText?: { __typename?: 'ComponentHeroBannerBodyText', json: any } | null, targetPage?: (
@@ -14,10 +14,18 @@ export type HeroBannerFieldsFragment = { __typename: 'ComponentHeroBanner', head
   ) | null, image?: (
     { __typename?: 'Asset' }
     & AssetFieldsFragment
-  ) | null, ntExperiencesCollection?: { __typename?: 'ComponentHeroBannerNt_experiencesCollection', items: Array<(
-      { __typename?: 'NtExperience' }
-      & NtExperienceFieldsFragment
-    ) | null> } | null };
+  ) | null };
+
+export type HeroBannerFieldsWithP13nFragment = (
+  { __typename?: 'ComponentHeroBanner', ntExperiencesCollection?: { __typename?: 'ComponentHeroBannerNt_experiencesCollection', items: Array<(
+      { __typename?: 'NtExperience', ntVariantsCollection?: { __typename?: 'NtExperienceNt_variantsCollection', items: Array<{ __typename?: 'ComponentCta' } | { __typename?: 'ComponentDuplex' } | (
+          { __typename?: 'ComponentHeroBanner' }
+          & HeroBannerFieldsFragment
+        ) | { __typename?: 'ComponentInfoBlock' } | { __typename?: 'ComponentProductTable' } | { __typename?: 'ComponentQuote' } | { __typename?: 'ComponentTextBlock' } | { __typename?: 'FooterMenu' } | { __typename?: 'MenuGroup' } | { __typename?: 'NavigationMenu' } | { __typename?: 'NtAudience' } | { __typename?: 'NtExperience' } | { __typename?: 'NtMergetag' } | { __typename?: 'Page' } | { __typename?: 'Seo' } | { __typename?: 'TopicBusinessInfo' } | { __typename?: 'TopicPerson' } | { __typename?: 'TopicProduct' } | { __typename?: 'TopicProductFeature' } | null> } | null }
+      & NtExperienceBasicFieldsFragment
+    ) | null> } | null }
+  & HeroBannerFieldsFragment
+);
 
 export type CtfHeroBannerQueryVariables = Types.Exact<{
   id: Types.Scalars['String'];
@@ -28,7 +36,7 @@ export type CtfHeroBannerQueryVariables = Types.Exact<{
 
 export type CtfHeroBannerQuery = { __typename?: 'Query', componentHeroBanner?: (
     { __typename?: 'ComponentHeroBanner' }
-    & HeroBannerFieldsFragment
+    & HeroBannerFieldsWithP13nFragment
   ) | null };
 
 export const HeroBannerFieldsFragmentDoc = `
@@ -51,10 +59,22 @@ export const HeroBannerFieldsFragmentDoc = `
   imageStyle
   heroSize
   colorPalette
-  ntExperiencesCollection {
+}
+    `;
+export const HeroBannerFieldsWithP13nFragmentDoc = `
+    fragment HeroBannerFieldsWithP13n on ComponentHeroBanner {
+  ...HeroBannerFields
+  ntExperiencesCollection(limit: 10) {
     items {
       ... on NtExperience {
-        ...NtExperienceFields
+        ...NtExperienceBasicFields
+        ntVariantsCollection(limit: 10) {
+          items {
+            ... on ComponentHeroBanner {
+              ...HeroBannerFields
+            }
+          }
+        }
       }
     }
   }
@@ -63,13 +83,14 @@ export const HeroBannerFieldsFragmentDoc = `
 export const CtfHeroBannerDocument = `
     query CtfHeroBanner($id: String!, $locale: String, $preview: Boolean) {
   componentHeroBanner(id: $id, locale: $locale, preview: $preview) {
-    ...HeroBannerFields
+    ...HeroBannerFieldsWithP13n
   }
 }
-    ${HeroBannerFieldsFragmentDoc}
+    ${HeroBannerFieldsWithP13nFragmentDoc}
+${HeroBannerFieldsFragmentDoc}
 ${PageLinkFieldsFragmentDoc}
 ${AssetFieldsFragmentDoc}
-${NtExperienceFieldsFragmentDoc}`;
+${NtExperienceBasicFieldsFragmentDoc}`;
 export const useCtfHeroBannerQuery = <
       TData = CtfHeroBannerQuery,
       TError = unknown

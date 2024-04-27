@@ -1,4 +1,4 @@
-fragment NtExperienceFields on NtExperience {
+fragment NtExperienceBasicFields on NtExperience {
   __typename
   sys {
     id
@@ -11,6 +11,10 @@ fragment NtExperienceFields on NtExperience {
     ntAudienceId
     ntName
   }
+}
+
+fragment NtExperienceFields on NtExperience {
+  ...NtExperienceBasicFields
   ntVariantsCollection {
     items {
       __typename
