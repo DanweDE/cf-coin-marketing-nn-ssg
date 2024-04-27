@@ -4,11 +4,16 @@ import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 import { useMemo } from 'react';
 
-import { QuoteFieldsFragment } from './__generated/ctf-quote.generated';
+import {
+  QuoteFieldsFragment,
+  QuoteFieldsWithP13nFragment,
+} from './__generated/ctf-quote.generated';
 
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
 import { getColorConfigFromPalette } from '@src/theme';
+import { mapGraphQLNinetailedExperiences } from '@src/components/features/p13n';
+import { Experience } from '@ninetailed/experience.js-next';
 
 const useStyles = makeStyles((theme: Theme) => ({
   innerContainer: {
@@ -110,7 +115,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CtfQuote = (props: QuoteFieldsFragment) => {
+export const CtfQuoteBasic = (props: QuoteFieldsFragment) => {
   const {
     imagePosition,
     image,
@@ -174,3 +179,19 @@ export const CtfQuote = (props: QuoteFieldsFragment) => {
     </LayoutContext.Provider>
   );
 };
+
+export const CtfQuote = (props: QuoteFieldsWithP13nFragment ) => {
+  const gqlBaselineEntry = props;
+  const gqlExperiences = props.ntExperiencesCollection?.items ?? []
+  const experiences = mapGraphQLNinetailedExperiences(
+    gqlExperiences
+  )
+  return (
+    <Experience
+      id={gqlBaselineEntry.sys.id}
+      {...gqlBaselineEntry}
+      component={CtfQuoteBasic}
+      experiences={experiences}
+    />
+  );
+}

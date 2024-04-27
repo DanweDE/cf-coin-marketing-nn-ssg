@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CtfHeroBannerPlain = (props: HeroBannerFieldsFragment) => {
+export const CtfHeroBannerBasic = (props: HeroBannerFieldsFragment) => {
   const {
     image,
     imageStyle: imageStyleBoolean,
@@ -199,21 +199,14 @@ export const CtfHeroBannerPlain = (props: HeroBannerFieldsFragment) => {
 export const CtfHeroBanner = (props: HeroBannerFieldsWithP13nFragment) => {
   const gqlBaselineEntry = props;
   const gqlExperiences = props.ntExperiencesCollection?.items ?? []
-  const mapVariant = (id, ctName, props) => {
-    return {
-      id,
-      sys: { id },
-      ...props,
-    }
-  }
   const experiences = mapGraphQLNinetailedExperiences(
-    gqlExperiences, mapVariant
+    gqlExperiences
   )
   return (
     <Experience
       id={gqlBaselineEntry.sys.id}
       {...gqlBaselineEntry}
-      component={CtfHeroBannerPlain}
+      component={CtfHeroBannerBasic}
       experiences={experiences}
     />
   );
