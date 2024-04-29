@@ -1,7 +1,7 @@
 # Contentful Marketing Starter Template
 
 A Marketing Starter Template powered by Next.js & Contentful, pre-designed with optimized & adjustable pages,
-components, and data management.
+components, data management and basic Ninetailed personalization support.
 
 ![The homepage of the Marketing Starter Template](marketing-starter-template.jpg 'The homepage of the Marketing Starter Template')
 
