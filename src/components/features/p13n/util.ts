@@ -43,12 +43,16 @@ export function mapGraphQLNinetailedExperiences(
             }
           : null,
         id: entry.sys.id,
-        variants: entry.ntVariantsCollection?.items.map((entry: any) => {
-          return {
-            ...entry,
-            id: entry.sys.id, // Required by Nt!
-          };
-        }),
+        variants: entry.ntVariantsCollection?.items.reduce((acc, entry: any) => {
+          const id = entry.sys?.id;
+          if (id) {
+            acc.push({
+              ...entry,
+              id: id, // Required by Nt!
+            });
+          }
+          return acc;
+        }, []),
       } as Experience;
     })
     .filter(ExperienceMapper.isExperienceEntry)
