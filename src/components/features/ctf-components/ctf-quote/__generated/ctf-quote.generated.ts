@@ -128,11 +128,11 @@ export const QuoteFieldsFragmentDoc = `
 export const QuoteFieldsWithP13nFragmentDoc = `
     fragment QuoteFieldsWithP13n on ComponentQuote {
   ...QuoteFields
-  ntExperiencesCollection(limit: 2) {
+  ntExperiencesCollection(limit: 10) {
     items {
       ... on NtExperience {
         ...NtExperienceBasicFields
-        ntVariantsCollection(limit: 4) {
+        ntVariantsCollection(limit: 10) {
           items {
             ... on ComponentQuote {
               ...QuoteFields
