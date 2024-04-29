@@ -26,8 +26,26 @@ fragment QuoteFields on ComponentQuote {
   colorPalette
 }
 
+fragment QuoteFieldsWithP13n on ComponentQuote {
+  ...QuoteFields
+  ntExperiencesCollection(limit: 2) {
+    items {
+      ... on NtExperience {
+        ...NtExperienceBasicFields
+        ntVariantsCollection(limit: 4) {
+          items {
+            ... on ComponentQuote {
+              ...QuoteFields
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 query CtfQuote($id: String!, $locale: String, $preview: Boolean) {
   componentQuote(id: $id, locale: $locale, preview: $preview) {
-    ...QuoteFields
+    ...QuoteFieldsWithP13n
   }
 }

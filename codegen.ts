@@ -10,6 +10,8 @@ export const config: CodegenConfig = {
       [fetchConfig.endpoint]: fetchConfig.params,
     },
   ],
+  // TODO: Might just work in newer version.
+  // noSilentErrors: true,
   generates: {
     './src/lib/__generated/graphql.schema.json': {
       plugins: ['introspection'],

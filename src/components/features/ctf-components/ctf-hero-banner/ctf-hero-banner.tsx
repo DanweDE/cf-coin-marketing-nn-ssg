@@ -1,12 +1,17 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { Container, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { Experience } from '@ninetailed/experience.js-next';
 import clsx from 'clsx';
 import { useMemo } from 'react';
 
-import { HeroBannerFieldsFragment } from './__generated/ctf-hero-banner.generated';
+import {
+  HeroBannerFieldsFragment,
+  HeroBannerFieldsWithP13nFragment,
+} from './__generated/ctf-hero-banner.generated';
 
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+import { mapGraphQLNinetailedExperiences } from '@src/components/features/p13n';
 import { PageLink } from '@src/components/features/page-link';
 import LayoutContext, { defaultLayout, useLayoutContext } from '@src/layout-context';
 import { getColorConfigFromPalette, HEADER_HEIGHT_MD, HEADER_HEIGHT } from '@src/theme';
@@ -94,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CtfHeroBanner = (props: HeroBannerFieldsFragment) => {
+export const CtfHeroBannerBasic = (props: HeroBannerFieldsFragment) => {
   const {
     image,
     imageStyle: imageStyleBoolean,
@@ -187,5 +192,19 @@ export const CtfHeroBanner = (props: HeroBannerFieldsFragment) => {
         )}
       </div>
     </Container>
+  );
+};
+
+export const CtfHeroBanner = (props: HeroBannerFieldsWithP13nFragment) => {
+  const gqlBaselineEntry = props;
+  const gqlExperiences = props.ntExperiencesCollection?.items ?? [];
+  const experiences = mapGraphQLNinetailedExperiences(gqlExperiences);
+  return (
+    <Experience
+      id={gqlBaselineEntry.sys.id}
+      {...gqlBaselineEntry}
+      component={CtfHeroBannerBasic}
+      experiences={experiences}
+    />
   );
 };

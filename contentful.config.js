@@ -6,6 +6,10 @@ module.exports = {
     cda_token: process.env.CONTENTFUL_ACCESS_TOKEN || '',
     cpa_token: process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN || '',
   },
+  ninetailed: {
+    apiKey: process.env.NINETAILED_API_KEY || '',
+    environment: process.env.NINETAILED_ENVIRONMENT || '',
+  },
   meta: {
     title: 'Digital banking for the new generation | Colorful Coin',
     description: `Enjoy premium banking services wherever you go: instant transfers and best exchange rates, exclusive offers and priority customer support. Apply online at ${url

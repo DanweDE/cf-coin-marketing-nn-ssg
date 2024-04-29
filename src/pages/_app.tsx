@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { appWithTranslation, SSRConfig } from 'next-i18next';
 import { useEffect, useState } from 'react';
 
+import { P13nProvider } from '@src/components/features/p13n';
 import { Settings } from '@src/components/features/settings';
 import { Layout } from '@src/components/templates/layout/layout';
 import { useContentfulContext, ContentfulContentProvider } from '@src/contentful-context';
@@ -84,10 +85,12 @@ const CustomApp = ({
             <StyledEngineProvider injectFirst>
               <ThemeProvider theme={colorfulTheme}>
                 <Hydrate state={dehydratedState}>
-                  <Layout preview={previewActive}>
-                    <Component {...pageProps} err={err} />
-                    <Settings />
-                  </Layout>
+                  <P13nProvider>
+                    <Layout preview={previewActive}>
+                      <Component {...pageProps} err={err} />
+                      <Settings />
+                    </Layout>
+                  </P13nProvider>
                 </Hydrate>
               </ThemeProvider>
             </StyledEngineProvider>
