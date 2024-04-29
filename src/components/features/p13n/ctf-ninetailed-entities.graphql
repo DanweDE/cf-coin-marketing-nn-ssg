@@ -35,7 +35,7 @@ fragment NtAudienceFields on NtAudience {
   ntAudienceId
 }
 
-query CtfNinetailedData($locale: String, $preview: Boolean) {
+query CtfNinetailedPreviewData($locale: String, $preview: Boolean) {
   ntExperienceCollection(locale: $locale, preview: $preview) {
     items {
       ...NtExperienceFields

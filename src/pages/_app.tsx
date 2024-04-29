@@ -2,7 +2,7 @@ import { ContentfulLivePreviewProvider } from '@contentful/live-preview/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { AppProps } from 'next/app'
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { appWithTranslation, SSRConfig } from 'next-i18next';
 import { useEffect, useState } from 'react';
@@ -20,7 +20,6 @@ const LivePreviewProvider = ({ children }) => {
   const { previewActive, locale } = useContentfulContext();
 
   return (
-
     <ContentfulLivePreviewProvider
       locale={locale}
       enableInspectorMode={previewActive}
@@ -57,7 +56,6 @@ const CustomApp = ({
     };
   }, [router.events]);
 
-  console.log('originalPageProps', originalPageProps);
   return (
     <>
       <Head>

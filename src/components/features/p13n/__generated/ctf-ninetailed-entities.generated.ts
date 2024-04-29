@@ -11,13 +11,13 @@ export type NtExperienceFieldsFragment = (
 
 export type NtAudienceFieldsFragment = { __typename: 'NtAudience', ntName?: string | null, ntDescription?: string | null, ntAudienceId?: string | null, sys: { __typename?: 'Sys', id: string } };
 
-export type CtfNinetailedDataQueryVariables = Types.Exact<{
+export type CtfNinetailedPreviewDataQueryVariables = Types.Exact<{
   locale?: Types.InputMaybe<Types.Scalars['String']>;
   preview?: Types.InputMaybe<Types.Scalars['Boolean']>;
 }>;
 
 
-export type CtfNinetailedDataQuery = { __typename?: 'Query', ntExperienceCollection?: { __typename?: 'NtExperienceCollection', items: Array<(
+export type CtfNinetailedPreviewDataQuery = { __typename?: 'Query', ntExperienceCollection?: { __typename?: 'NtExperienceCollection', items: Array<(
       { __typename?: 'NtExperience' }
       & NtExperienceFieldsFragment
     ) | null> } | null, ntAudienceCollection?: { __typename?: 'NtAudienceCollection', items: Array<(
@@ -65,8 +65,8 @@ export const NtAudienceFieldsFragmentDoc = `
   ntAudienceId
 }
     `;
-export const CtfNinetailedDataDocument = `
-    query CtfNinetailedData($locale: String, $preview: Boolean) {
+export const CtfNinetailedPreviewDataDocument = `
+    query CtfNinetailedPreviewData($locale: String, $preview: Boolean) {
   ntExperienceCollection(locale: $locale, preview: $preview) {
     items {
       ...NtExperienceFields
@@ -81,20 +81,20 @@ export const CtfNinetailedDataDocument = `
     ${NtExperienceFieldsFragmentDoc}
 ${NtExperienceBasicFieldsFragmentDoc}
 ${NtAudienceFieldsFragmentDoc}`;
-export const useCtfNinetailedDataQuery = <
-      TData = CtfNinetailedDataQuery,
+export const useCtfNinetailedPreviewDataQuery = <
+      TData = CtfNinetailedPreviewDataQuery,
       TError = unknown
     >(
-      variables?: CtfNinetailedDataQueryVariables,
-      options?: UseQueryOptions<CtfNinetailedDataQuery, TError, TData>
+      variables?: CtfNinetailedPreviewDataQueryVariables,
+      options?: UseQueryOptions<CtfNinetailedPreviewDataQuery, TError, TData>
     ) =>
-    useQuery<CtfNinetailedDataQuery, TError, TData>(
-      variables === undefined ? ['CtfNinetailedData'] : ['CtfNinetailedData', variables],
-      customFetcher<CtfNinetailedDataQuery, CtfNinetailedDataQueryVariables>(CtfNinetailedDataDocument, variables),
+    useQuery<CtfNinetailedPreviewDataQuery, TError, TData>(
+      variables === undefined ? ['CtfNinetailedPreviewData'] : ['CtfNinetailedPreviewData', variables],
+      customFetcher<CtfNinetailedPreviewDataQuery, CtfNinetailedPreviewDataQueryVariables>(CtfNinetailedPreviewDataDocument, variables),
       options
     );
 
-useCtfNinetailedDataQuery.getKey = (variables?: CtfNinetailedDataQueryVariables) => variables === undefined ? ['CtfNinetailedData'] : ['CtfNinetailedData', variables];
+useCtfNinetailedPreviewDataQuery.getKey = (variables?: CtfNinetailedPreviewDataQueryVariables) => variables === undefined ? ['CtfNinetailedPreviewData'] : ['CtfNinetailedPreviewData', variables];
 ;
 
-useCtfNinetailedDataQuery.fetcher = (variables?: CtfNinetailedDataQueryVariables, options?: RequestInit['headers']) => customFetcher<CtfNinetailedDataQuery, CtfNinetailedDataQueryVariables>(CtfNinetailedDataDocument, variables, options);
+useCtfNinetailedPreviewDataQuery.fetcher = (variables?: CtfNinetailedPreviewDataQueryVariables, options?: RequestInit['headers']) => customFetcher<CtfNinetailedPreviewDataQuery, CtfNinetailedPreviewDataQueryVariables>(CtfNinetailedPreviewDataDocument, variables, options);

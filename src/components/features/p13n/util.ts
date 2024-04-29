@@ -1,12 +1,13 @@
 import {
-  CtfNinetailedDataQuery, NtAudienceFieldsFragment,
+  CtfNinetailedPreviewDataQuery,
+  NtAudienceFieldsFragment,
   NtExperienceBasicFieldsFragment,
 } from '@src/components/features/p13n/__generated/ctf-ninetailed-entities.generated';
 import { Experience, ExperienceMapper } from '@ninetailed/experience.js-utils';
 import { ExposedAudienceDefinition } from '@ninetailed/experience.js-preview-bridge';
 import { Sys } from '@src/lib/__generated/graphql.types';
 
-export function mapCtflNinetailedData(data: CtfNinetailedDataQuery) {
+export function mapCtflNinetailedData(data: CtfNinetailedPreviewDataQuery) {
   const experiences = data.ntExperienceCollection?.items ?? [];
   const audiences = data.ntAudienceCollection?.items ?? [];
 
@@ -21,15 +22,15 @@ function isNotEmpty<T>(input: null | undefined | T): input is T {
 }
 
 type CtfNtGqlExperienceData = NtExperienceBasicFieldsFragment & {
-  ntVariantsCollection?: any
-}
+  ntVariantsCollection?: any;
+};
 
 export function mapGraphQLNinetailedExperiences(
   ntExperiences: Array<CtfNtGqlExperienceData | null>,
 ) {
   return ntExperiences
     .filter(isNotEmpty)
-    .map((entry) => {
+    .map(entry => {
       return {
         name: entry.ntName,
         type: entry.ntType,
@@ -37,9 +38,9 @@ export function mapGraphQLNinetailedExperiences(
         description: entry.ntDescription,
         audience: entry.ntAudience
           ? {
-            id: entry.ntAudience.ntAudienceId,
-            name: entry.ntAudience.ntName,
-          }
+              id: entry.ntAudience.ntAudienceId,
+              name: entry.ntAudience.ntName,
+            }
           : null,
         id: entry.sys.id,
         variants: entry.ntVariantsCollection?.items.map((entry: any) => {
@@ -55,11 +56,9 @@ export function mapGraphQLNinetailedExperiences(
 }
 
 export function mapGraphQlNinetailedAudiences(ntAudiences: Array<NtAudienceFieldsFragment | null>) {
-  return ntAudiences
-    .filter(isNotEmpty)
-    .map((entry) => ({
-      id: entry?.ntAudienceId,
-      name: entry?.ntName,
-      description: entry?.ntDescription,
-    })) as ExposedAudienceDefinition[];
+  return ntAudiences.filter(isNotEmpty).map(entry => ({
+    id: entry?.ntAudienceId,
+    name: entry?.ntName,
+    description: entry?.ntDescription,
+  })) as ExposedAudienceDefinition[];
 }
