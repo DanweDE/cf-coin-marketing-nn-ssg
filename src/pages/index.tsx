@@ -7,7 +7,7 @@ import { useCtfPageQuery } from '@src/components/features/ctf-components/ctf-pag
 import CtfPageGgl from '@src/components/features/ctf-components/ctf-page/ctf-page-gql';
 import { getServerSideTranslations } from '@src/lib/get-serverside-translations';
 import { prefetchPromiseArr } from '@src/lib/prefetch-promise-array';
-import { useCtfNinetailedPreviewDataQuery } from '@src/components/features/p13n';
+import { maybePrefetchP13nPreviewData } from '@src/components/features/p13n';
 
 const LangPage: NextPage = () => {
   return <CtfPageGgl slug="/" />;
@@ -19,10 +19,7 @@ export const getServerSideProps = async ({ locale, query }: NextPageContext) => 
     const queryClient = new QueryClient();
 
     // Default queries
-    await queryClient.prefetchQuery(
-      useCtfNinetailedPreviewDataQuery.getKey({ locale, preview }),
-      useCtfNinetailedPreviewDataQuery.fetcher({ locale, preview }),
-    );
+    await maybePrefetchP13nPreviewData(queryClient, { locale, preview });
     await queryClient.prefetchQuery(
       useCtfPageQuery.getKey({ slug: 'home', locale, preview }),
       useCtfPageQuery.fetcher({ slug: 'home', locale, preview }),
