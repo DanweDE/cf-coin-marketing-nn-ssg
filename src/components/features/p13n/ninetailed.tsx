@@ -1,12 +1,14 @@
-import contentfulConfig from 'contentful.config';
-import { NinetailedProvider } from '@ninetailed/experience.js-next';
-import { NinetailedPreviewPlugin } from '@ninetailed/experience.js-plugin-preview';
-import { NinetailedInsightsPlugin } from '@ninetailed/experience.js-plugin-insights';
-import { useContentfulContext } from '@src/contentful-context';
 import { ContentfulLivePreview } from '@contentful/live-preview';
-import { useCtfNinetailedPreviewDataQuery } from './__generated/ctf-ninetailed-entities.generated';
+import { NinetailedProvider } from '@ninetailed/experience.js-next';
+import { NinetailedInsightsPlugin } from '@ninetailed/experience.js-plugin-insights';
+import { NinetailedPreviewPlugin } from '@ninetailed/experience.js-plugin-preview';
 import { useMemo } from 'react';
+
+import { useCtfNinetailedPreviewDataQuery } from './__generated/ctf-ninetailed-entities.generated';
 import { mapCtflNinetailedData } from './util';
+
+import { useContentfulContext } from '@src/contentful-context';
+import contentfulConfig from 'contentful.config';
 
 const P13nProvider = ({ children }) => {
   const { previewActive } = useContentfulContext();
@@ -37,7 +39,7 @@ const P13nProviderProduction = ({ children, clientId, environment }) => {
 const P13nProviderPreview = ({ children, clientId, environment }) => {
   const { locale, previewActive } = useContentfulContext();
 
-  const { isLoading, data } = useCtfNinetailedPreviewDataQuery({
+  const { data } = useCtfNinetailedPreviewDataQuery({
     locale,
     preview: previewActive, // CDA vs. CPA
   });
@@ -55,7 +57,7 @@ const P13nProviderPreview = ({ children, clientId, environment }) => {
         new NinetailedPreviewPlugin({
           experiences: ninetailed.experiences,
           audiences: ninetailed.audiences,
-          onOpenExperienceEditor: (experience) => {
+          onOpenExperienceEditor: experience => {
             // TODO: Seems to cause some sort of error when opening CF.
             ContentfulLivePreview.openEntryInEditor({
               locale,

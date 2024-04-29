@@ -1,11 +1,11 @@
+import { ExposedAudienceDefinition } from '@ninetailed/experience.js-preview-bridge';
+import { Experience, ExperienceMapper } from '@ninetailed/experience.js-utils';
+
 import {
   CtfNinetailedPreviewDataQuery,
   NtAudienceFieldsFragment,
   NtExperienceBasicFieldsFragment,
 } from '@src/components/features/p13n/__generated/ctf-ninetailed-entities.generated';
-import { Experience, ExperienceMapper } from '@ninetailed/experience.js-utils';
-import { ExposedAudienceDefinition } from '@ninetailed/experience.js-preview-bridge';
-import { Sys } from '@src/lib/__generated/graphql.types';
 
 export function mapCtflNinetailedData(data: CtfNinetailedPreviewDataQuery) {
   const experiences = data.ntExperienceCollection?.items ?? [];

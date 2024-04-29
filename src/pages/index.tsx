@@ -5,9 +5,9 @@ import { useCtfFooterQuery } from '@src/components/features/ctf-components/ctf-f
 import { useCtfNavigationQuery } from '@src/components/features/ctf-components/ctf-navigation/__generated/ctf-navigation.generated';
 import { useCtfPageQuery } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
 import CtfPageGgl from '@src/components/features/ctf-components/ctf-page/ctf-page-gql';
+import { maybePrefetchP13nPreviewData } from '@src/components/features/p13n';
 import { getServerSideTranslations } from '@src/lib/get-serverside-translations';
 import { prefetchPromiseArr } from '@src/lib/prefetch-promise-array';
-import { maybePrefetchP13nPreviewData } from '@src/components/features/p13n';
 
 const LangPage: NextPage = () => {
   return <CtfPageGgl slug="/" />;

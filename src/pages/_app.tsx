@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { appWithTranslation, SSRConfig } from 'next-i18next';
 import { useEffect, useState } from 'react';
 
+import { P13nProvider } from '@src/components/features/p13n';
 import { Settings } from '@src/components/features/settings';
 import { Layout } from '@src/components/templates/layout/layout';
 import { useContentfulContext, ContentfulContentProvider } from '@src/contentful-context';
@@ -14,7 +15,6 @@ import { queryConfig } from '@src/lib/gql-client';
 import colorfulTheme from '@src/theme';
 import contentfulConfig from 'contentful.config';
 import nextI18nConfig from 'next-i18next.config';
-import { P13nProvider } from '@src/components/features/p13n';
 
 const LivePreviewProvider = ({ children }) => {
   const { previewActive, locale } = useContentfulContext();
