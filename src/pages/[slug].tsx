@@ -8,8 +8,10 @@ import { useCtfPageQuery } from '@src/components/features/ctf-components/ctf-pag
 import CtfPageGgl from '@src/components/features/ctf-components/ctf-page/ctf-page-gql';
 import { ComponentReferenceFieldsFragment } from '@src/lib/__generated/graphql.types';
 import { getServerSideTranslations } from '@src/lib/get-serverside-translations';
+import { useCtfPagesQuery } from '@src/lib/meta-queries/__generated/pages.generated';
 import { prefetchMap, PrefetchMappingTypeFetcher } from '@src/lib/prefetch-mappings';
 import { prefetchPromiseArr } from '@src/lib/prefetch-promise-array';
+import { isNotEmpty } from '@src/utils';
 
 const SlugPage: NextPage = () => {
   const router = useRouter();
@@ -25,9 +27,25 @@ export interface CustomNextPageContext extends NextPageContext {
   id: string;
 }
 
-export const getServerSideProps = async ({ locale, params, query }: CustomNextPageContext) => {
+// TODO: Proper types!
+export const getStaticPaths = async ({ locales, defaultLocale }) => {
+  const preview = false; // query.preview worked with SSR but not SSG/ISR
+  // Note: Currently we assume that `slug` isn't a localized field.
+  const pages = await useCtfPagesQuery.fetcher({ locale: defaultLocale, preview })();
+  const slugs = pages.pageCollection!.items.map(page => page?.slug).filter(isNotEmpty);
+  const paths = slugs.reduce<any>((paths, slug) => {
+    const path = { params: { slug: slug } };
+    return [...paths, ...locales.map(locale => ({ ...path, locale }))];
+  }, []);
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ locale, params }: CustomNextPageContext) => {
   const slug = params.slug;
-  const preview = Boolean(query.preview);
+  const preview = false; // query.preview worked with SSR but not SSG/ISR
 
   try {
     const queryClient = new QueryClient();
