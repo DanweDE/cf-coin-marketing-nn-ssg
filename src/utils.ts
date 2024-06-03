@@ -31,3 +31,7 @@ export const optimizeLineBreak = (str: string): string => {
 
   return `${tokens.join(' ')}\u00A0${lastToken}`;
 };
+
+export function isNotEmpty<T>(input: null | undefined | T): input is T {
+  return !!input;
+}

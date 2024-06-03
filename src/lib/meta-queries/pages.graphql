@@ -1,0 +1,10 @@
+query CtfPages($locale: String, $preview: Boolean) {
+  pageCollection(preview: $preview, locale: $locale) {
+    items {
+      sys {
+        id
+      }
+      slug
+    }
+  }
+}

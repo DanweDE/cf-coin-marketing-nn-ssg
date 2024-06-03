@@ -6,6 +6,7 @@ import {
   NtAudienceFieldsFragment,
   NtExperienceBasicFieldsFragment,
 } from '@src/components/features/p13n/__generated/ctf-ninetailed-entities.generated';
+import { isNotEmpty } from '@src/utils';
 
 export function mapCtflNinetailedData(data: CtfNinetailedPreviewDataQuery) {
   const experiences = data.ntExperienceCollection?.items ?? [];
@@ -15,10 +16,6 @@ export function mapCtflNinetailedData(data: CtfNinetailedPreviewDataQuery) {
     experiences: mapGraphQLNinetailedExperiences(experiences),
     audiences: mapGraphQlNinetailedAudiences(audiences),
   };
-}
-
-function isNotEmpty<T>(input: null | undefined | T): input is T {
-  return !!input;
 }
 
 type CtfNtGqlExperienceData = NtExperienceBasicFieldsFragment & {
