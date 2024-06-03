@@ -13,8 +13,8 @@ const LangPage: NextPage = () => {
   return <CtfPageGgl slug="/" />;
 };
 
-export const getServerSideProps = async ({ locale, query }: NextPageContext) => {
-  const preview = Boolean(query.preview);
+export const getStaticProps = async ({ locale }: NextPageContext) => {
+  const preview = false; // query.preview worked with SSR but not SSG/ISR
 
   try {
     const queryClient = new QueryClient();
