@@ -2,17 +2,17 @@ import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 
-import { isNotEmpty } from '@src/utils';
 import { useCtfFooterQuery } from '@src/components/features/ctf-components/ctf-footer/__generated/ctf-footer.generated';
 import { useCtfNavigationQuery } from '@src/components/features/ctf-components/ctf-navigation/__generated/ctf-navigation.generated';
 import { useCtfPageQuery } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
-import { useCtfPagesQuery } from '@src/lib/meta-queries/__generated/pages.generated';
 import CtfPageGgl from '@src/components/features/ctf-components/ctf-page/ctf-page-gql';
 import { maybePrefetchP13nPreviewData } from '@src/components/features/p13n';
 import { ComponentReferenceFieldsFragment } from '@src/lib/__generated/graphql.types';
 import { getServerSideTranslations } from '@src/lib/get-serverside-translations';
+import { useCtfPagesQuery } from '@src/lib/meta-queries/__generated/pages.generated';
 import { prefetchMap, PrefetchMappingTypeFetcher } from '@src/lib/prefetch-mappings';
 import { prefetchPromiseArr } from '@src/lib/prefetch-promise-array';
+import { isNotEmpty } from '@src/utils';
 
 const SlugPage: NextPage = () => {
   const router = useRouter();
