@@ -127,7 +127,10 @@ export const CtfQuoteBasic = (props: QuoteFieldsFragment) => {
   const colorConfig = getColorConfigFromPalette(colorPalette || '');
   const containerLayout = imagePosition === true ? 'imageLeft' : 'imageRight';
   const quoteAlignment = quoteAlignmentBoolean === true ? 'center' : 'left';
-  const backgroundImage = useMemo(() => (image ? `${image.url}?w=${600 * 2}` : undefined), [image]);
+  const backgroundImage = useMemo(
+    () => (image ? `${image.url}?w=${600 * 2}&fm=webp` : undefined),
+    [image],
+  );
   const classes = useStyles(props);
   const inspectorMode = useContentfulInspectorMode({ entryId: id });
 

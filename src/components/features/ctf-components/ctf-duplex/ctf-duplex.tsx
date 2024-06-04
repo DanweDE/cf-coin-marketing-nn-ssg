@@ -155,7 +155,7 @@ const DuplexImage = (props: DuplexFieldsFragment) => {
         <div className={classes.nextImageContainer} {...inspectorMode({ fieldId: 'image' })}>
           <CtfImage
             className={clsx([classes.image, imageStyle === 'fixed' && classes.imageFull])}
-            src={`${image.url}?w=600`}
+            src={`${image.url}?w=600&fm=webp`}
             alt={image.description || ''}
             layout="responsive"
             width={image.width || undefined}

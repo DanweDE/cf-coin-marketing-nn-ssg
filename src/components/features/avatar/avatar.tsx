@@ -27,7 +27,7 @@ interface AvatarPropsInterface {
 
 export const Avatar = (props: AvatarPropsInterface) => {
   const { asset, widthPx = 250 } = props;
-  const url = useMemo(() => `${asset.url}?w=${widthPx}`, [asset.url, widthPx]);
+  const url = useMemo(() => `${asset.url}?w=${widthPx}&fm=webp`, [asset.url, widthPx]);
   const classes = useStyles();
   return (
     <div className={classes.avatarRoot}>

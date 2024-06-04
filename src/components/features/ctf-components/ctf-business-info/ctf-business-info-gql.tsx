@@ -43,7 +43,7 @@ export const CtfBusinessInfoGql = ({ preview, id }: CtfBusinessInfoGqlPropsInter
           <meta
             key="og:image"
             property="og:image"
-            content={`${topicBusinessInfo.featuredImage?.url}?w=1200&h=630&f=faces&fit=fill`}
+            content={`${topicBusinessInfo.featuredImage?.url}?w=1200&h=630&f=faces&fit=fill&fm=webp`}
           />
         </Head>
       )}

@@ -122,7 +122,7 @@ export const CtfHeroBannerBasic = (props: HeroBannerFieldsFragment) => {
   const backgroundImage = useMemo(
     () =>
       image
-        ? `${image.url}?w=${imageStyle === 'partial' ? 767 * 2 : layout.containerWidth * 2}`
+        ? `${image.url}?w=${imageStyle === 'partial' ? 767 * 2 : layout.containerWidth * 2}&fm=webp`
         : undefined,
     [image, imageStyle, layout.containerWidth],
   );
