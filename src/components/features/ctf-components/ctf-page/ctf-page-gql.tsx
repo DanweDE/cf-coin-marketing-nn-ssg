@@ -72,7 +72,7 @@ const CtfPageGgl = ({ slug: slugFromProps }: Props) => {
           <meta
             key="og:image"
             property="og:image"
-            content={`${metaTags.image.url}?w=1200&h=630&f=faces&fit=fill`}
+            content={`${metaTags.image.url}?w=1200&h=630&f=faces&fit=fill&fm=webp`}
           />
         )}
         {page.slug && (

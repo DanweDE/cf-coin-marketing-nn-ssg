@@ -96,7 +96,7 @@ const CtfBusinessInfo = (props: BusinessInfoFieldsFragment) => {
     sys: { id },
   } = props;
   const backgroundImage = useMemo(
-    () => (featuredImage ? `${featuredImage.url}?w=1920` : undefined),
+    () => (featuredImage ? `${featuredImage.url}?w=1920&fm=webp` : undefined),
     [featuredImage],
   );
 

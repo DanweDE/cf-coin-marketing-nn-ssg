@@ -41,7 +41,7 @@ export const CtfProductGql = (props: CtfProductGqlPropsInterface) => {
           <meta
             key="og:image"
             property="og:image"
-            content={`${topicProduct.featuredImage.url}?w=1200&h=630&f=faces&fit=fill`}
+            content={`${topicProduct.featuredImage.url}?w=1200&h=630&f=faces&fit=fill&fm=webp`}
           />
         </Head>
       )}
