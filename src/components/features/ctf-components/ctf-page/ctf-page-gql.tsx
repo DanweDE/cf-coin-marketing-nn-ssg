@@ -55,6 +55,7 @@ const CtfPageGgl = ({ slug: slugFromProps }: Props) => {
   return (
     <>
       <Head>
+        <link rel="preconnect" href="https://experience.ninetailed.co" />
         {metaTags.title && (
           <>
             <title key="title">{metaTags.title}</title>
