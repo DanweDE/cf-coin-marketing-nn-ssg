@@ -1,4 +1,9 @@
 require('dotenv').config();
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.BUNDLE_ANALYZE === 'true' && process.env.NODE_ENV !== 'development',
+  openAnalyzer: false
+});
+// TODO: Get rid of this, seems unmaintained and caused issue with bundle-analyzer!
 const nextComposePlugins = require('next-compose-plugins');
 
 const headers = require('./config/headers');
@@ -15,7 +20,7 @@ const { withPlugins } = nextComposePlugins.extend(() => ({}));
  * Next config
  * documentation: https://nextjs.org/docs/api-reference/next.config.js/introduction
  */
-module.exports = withPlugins(plugins, {
+module.exports = withPlugins(plugins, withBundleAnalyzer({
   i18n,
   /**
    * add the environment variables you would like exposed to the client here
@@ -90,4 +95,4 @@ module.exports = withPlugins(plugins, {
 
     return config;
   },
-});
+}));
