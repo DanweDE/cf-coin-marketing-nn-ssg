@@ -25,8 +25,7 @@ export const ContentfulContext = createContext<ContentfulContextInterface>(conte
 export const useContentfulContext = () => useContext(ContentfulContext);
 
 const ContentfulContentProvider = ({ children, router }) => {
-  const isProduction = process.env.NODE_ENV === 'production';
-  const previewActive = !isProduction && !!router.query.preview;
+  const previewActive = !!router.query.preview;
 
   return (
     <ContentfulContext.Provider
